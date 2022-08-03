@@ -62,10 +62,6 @@ app.get("/alltasks", async (req, res) => {
     res.send(tasks);
 });
 
-app.listen(3001, (req, res) => {
-    console.log("server runnning on port 3001");
-});
-
 //delete task
 
 app.delete("/deletetask/:id/:mail", async (req, res) => {
@@ -168,4 +164,9 @@ app.get("/username", async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+});
+
+let thePort = process.env.PORT ? process.env.PORT : 8080;
+app.listen(thePort, (req, res) => {
+    console.log("server runnning on port 3001");
 });
