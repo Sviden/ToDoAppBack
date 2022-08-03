@@ -168,5 +168,5 @@ app.get("/username", async (req, res) => {
 
 let thePort = process.env.PORT ? process.env.PORT : 8080;
 app.listen(thePort, (req, res) => {
-    console.log("server runnning on port 3001");
+    console.log(`server runnning on port ${thePort}`);
 });
