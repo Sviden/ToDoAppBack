@@ -1,0 +1,7 @@
+
+server/package-lock.json
+**/node_modules/
+node_modules/
+myapp/node_modules
+server/node_modules
+
