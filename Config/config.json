@@ -1,0 +1,3 @@
+{
+    "mongoDbConnection": "mongodb+srv://sviden:wsa123456@cluster0.nkfxr.mongodb.net/toDoApp?retryWrites=true&w=majority"
+}

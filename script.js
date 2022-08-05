@@ -1,6 +1,8 @@
 const express = require("express");
 var bodyParser = require("body-parser");
 var { ObjectId } = require("mongodb");
+const config = require("./Config/config.json");
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -19,7 +21,7 @@ db.once("open", () => {
 const quotesModel = require("./models/Quotes.js");
 const userModel = require("./models/Task.js");
 
-app.get("/newtask", async (req, res) => {
+app.get("/randphrase", async (req, res) => {
     quotesModel.find({}, (err, result) => {
         if (err) {
             res.send(err);
@@ -29,7 +31,6 @@ app.get("/newtask", async (req, res) => {
 });
 
 app.post("/addtask", async (req, res) => {
-    // const [reqtitle, reqDescription, reqFile] = req.body;
     const taskTitle = req.body.taskTitle;
     const details = req.body.details;
     const dateToDo = req.body.dateToDo;
@@ -53,7 +54,7 @@ app.post("/addtask", async (req, res) => {
     res.send();
 });
 
-//get data from database
+//get all tasks from database
 app.get("/alltasks", async (req, res) => {
     const email = req.query.email;
     console.log(email);
