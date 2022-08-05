@@ -22,12 +22,9 @@ const quotesModel = require("./models/Quotes.js");
 const userModel = require("./models/Task.js");
 
 app.get("/randphrase", async (req, res) => {
-    quotesModel.find({}, (err, result) => {
-        if (err) {
-            res.send(err);
-        }
-        res.send(result);
-    });
+    let response = await quotesModel.aggregate().match({  }).sample(1);
+
+    res.send(response);
 });
 
 app.post("/addtask", async (req, res) => {
