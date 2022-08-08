@@ -6,7 +6,8 @@ const TaskSchema = new mongoose.Schema({
     },
     description: String,
     createDate: String, 
-    dateToDo: String
+    dateToDo: String,
+    isChecked: Boolean
 })
 
 // const taskModel = mongoose.model("TaskInfo", TaskSchema );

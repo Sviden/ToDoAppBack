@@ -39,6 +39,7 @@ app.post("/addtask", async (req, res) => {
         description: details,
         createDate: createDate,
         dateToDo: dateToDo,
+        isChecked: false
     };
 
     try {
@@ -81,12 +82,15 @@ app.delete("/deletetask/:id/:mail", async (req, res) => {
 app.put("/updatetask/:id", async (req, res) => {
     const id = req.params.id;
     const details = req.body.details;
+    const checked = req.body.isChecked;
+    console.log(id + ' ' + req.body.details + ' ' + JSON.stringify(req.body));
     try {
         await userModel.updateOne(
             { "tasks._id": ObjectId(id) },
             {
                 $set: {
                     "tasks.$.description": details,
+                    "tasks.$.isChecked": checked,
                 },
             }
         );
