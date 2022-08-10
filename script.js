@@ -28,53 +28,76 @@ app.get("/randphrase", async (req, res) => {
 });
 
 app.post("/addtask", async (req, res) => {
-    const taskTitle = req.body.taskTitle;
-    const details = req.body.details;
-    const dateToDo = req.body.dateToDo;
-    const createDate = req.body.createDate;
-    const userEmail = req.body.userEmail;
-
-    const task = {
-        title: taskTitle,
-        description: details,
-        createDate: createDate,
-        dateToDo: dateToDo,
-        isChecked: false
-    };
-
     try {
-       await userModel.updateOne({ email: userEmail }, { $push: { tasks: task } });
-        console.log("task saved");
-    } catch (error) {
-        console.log(error);
-    }
+        const taskTitle = req.body.taskTitle;
+        const details = req.body.details;
+        const dateToDo = req.body.dateToDo;
+        const createDate = req.body.createDate;
+        const userEmail = req.body.userEmail;
+    
+        const task = {
+            title: taskTitle,
+            description: details,
+            createDate: createDate,
+            dateToDo: dateToDo,
+            isChecked: false
+        };
+    
+        try {
+           await userModel.updateOne({ email: userEmail }, { $push: { tasks: task } });
+            console.log("task saved");
+        } catch (error) {
+            console.log(error);
+        }
 
     res.send();
+    }
+    catch (ex)
+    {
+        console.log(ex);
+        res.send();
+    }
+
 });
 
 //get all tasks from database
 app.get("/alltasks", async (req, res) => {
-    const email = req.query.email;
-    console.log(email);
-    let response = await userModel.findOne({ email: email }).select({ tasks: 1, _id: 0 });
-    const tasks = response.tasks;
-    res.send(tasks);
+    try {
+        const email = req.query.email;
+        console.log(email);
+        let response = await userModel.findOne({ email: email }).select({ tasks: 1, _id: 0 });
+        const tasks = response.tasks;
+        res.send(tasks);
+    }
+    catch(ex)
+    {
+        console.log(ex);
+        res.send();
+    }
+    
 });
 
 //delete task
 
 app.delete("/deletetask/:id/:mail", async (req, res) => {
-    console.log(req.query);
-    const id = req.params.id;
-    const mail = req.params.mail;
-    console.log(id);
     try {
-        let response = await userModel.updateOne({ email: mail }, { $pull: { tasks: { _id: id } } });
-    } catch (error) {
-        res.send(error);
+        console.log(req.query);
+        const id = req.params.id;
+        const mail = req.params.mail;
+        console.log(id);
+        try {
+            let response = await userModel.updateOne({ email: mail }, { $pull: { tasks: { _id: id } } });
+        } catch (error) {
+            res.send(error);
+        }
+    
+        res.send("deleted");
     }
-
-    res.send("deleted");
+    catch (ex){
+        console.log(ex);
+        res.send();
+    }
+ 
 });
 
 //update task
