@@ -10,10 +10,7 @@ const cors = require("cors");
 app.use(cors());
 
 const mongoose = require("mongoose");
-mongoose.connect(config.mongoDbConnection, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(config.mongoDbConnection);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 
